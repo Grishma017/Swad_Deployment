@@ -26,17 +26,6 @@ function AdminLayout({
             </span>
           </a>
 
-          {/* Center navigation */}
-          <nav className="admin-primary-nav" aria-label="Admin Navigation">
-            <button
-              type="button"
-              className={`admin-dashboard-link${activeTab === 'dashboard' ? ' is-active' : ''}`}
-              onClick={() => onNavigate('dashboard')}
-            >
-              Dashboard
-            </button>
-          </nav>
-
           {/* Right side: search, logout, create */}
           <div className="admin-nav-actions">
             <label className="admin-search-field">

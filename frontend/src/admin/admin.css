@@ -434,8 +434,8 @@
 .admin-nav-container {
   width: min(1320px, calc(100% - 72px));
   min-height: 84px;
-  display: grid;
-  grid-template-columns: auto auto minmax(0, 1fr);
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   gap: clamp(24px, 4vw, 58px);
   margin-inline: auto;
