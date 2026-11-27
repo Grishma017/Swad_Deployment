@@ -10,20 +10,33 @@ if (!fs.existsSync(localUploadsDir)) {
   fs.mkdirSync(localUploadsDir, { recursive: true })
 }
 
+function sanitizeCredential(val) {
+  if (!val) return ''
+  return val
+    .trim()
+    .replace(/^['"]|['"]$/g, '')
+    .replace(/\s*(api\s*secret|api\s*key|cloud\s*name)\s*$/i, '')
+    .trim()
+}
+
+const cloudName = sanitizeCredential(process.env.CLOUDINARY_CLOUD_NAME)
+const apiKey = sanitizeCredential(process.env.CLOUDINARY_API_KEY)
+const apiSecret = sanitizeCredential(process.env.CLOUDINARY_API_SECRET)
+
 // Check if valid Cloudinary credentials are provided
 const hasCloudinary =
-  process.env.CLOUDINARY_CLOUD_NAME &&
-  process.env.CLOUDINARY_CLOUD_NAME !== 'your_cloud_name' &&
-  process.env.CLOUDINARY_API_KEY &&
-  process.env.CLOUDINARY_API_KEY !== 'your_api_key' &&
-  process.env.CLOUDINARY_API_SECRET &&
-  process.env.CLOUDINARY_API_SECRET !== 'your_api_secret'
+  cloudName &&
+  cloudName !== 'your_cloud_name' &&
+  apiKey &&
+  apiKey !== 'your_api_key' &&
+  apiSecret &&
+  apiSecret !== 'your_api_secret'
 
 if (hasCloudinary) {
   cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET,
+    cloud_name: cloudName,
+    api_key: apiKey,
+    api_secret: apiSecret,
   })
 }
 
